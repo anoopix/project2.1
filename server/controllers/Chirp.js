@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const Chirp = models.Chirp;
+const { Chirp } = models;
 
 const makerPage = (req, res) => {
     Chirp.ChirpModel.findAllChirps((err, docs) => {
@@ -20,7 +20,7 @@ const makeChirp = (req, res) => {
 
     const createdDate = new Date(Date.now());
 
-    const dateToString = createdDate.toLocaleString('en-US', { timeZone: 'EST' });
+    const dateToString = createdDate.toLocaleString('en-US', { timeZone: 'America/New_York' });
 
     const chirpData = {
         chirp: req.body.chirp,

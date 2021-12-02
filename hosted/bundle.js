@@ -15,7 +15,6 @@ var sendAjax = function sendAjax(action, data) {
       window.location = result.redirect;
     },
     error: function error(xhr, status, _error) {
-      console.log(xhr.responseText);
       var messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
     }

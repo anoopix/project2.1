@@ -1,86 +1,86 @@
 const models = require('../models');
 
-const Account = models.Account;
+const { Account } = models;
 
 const loginPage = (req, res) => {
-    res.render('login', { csrfToken: req.csrfToken() });
+  res.render('login', { csrfToken: req.csrfToken() });
 };
 
 const signupPage = (req, res) => {
-    res.render('signup', { csrfToken: req.csrfToken() });
+  res.render('signup', { csrfToken: req.csrfToken() });
 };
 
 const logout = (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
+  req.session.destroy();
+  res.redirect('/');
 };
 
 const login = (request, response) => {
-    const req = request;
-    const res = response;
+  const req = request;
+  const res = response;
 
-    // Force cast to strings to cover up some security flaws
-    const username = `${req.body.username}`;
-    const password = `${req.body.pass}`;
+  // Force cast to strings to cover up some security flaws
+  const username = `${req.body.username}`;
+  const password = `${req.body.pass}`;
 
-    if (!username || !password) {
-        return res.status(400).json({ error: 'All the fields need to be filled!' });
+  if (!username || !password) {
+    return res.status(400).json({ error: 'All the fields need to be filled!' });
+  }
+
+  return Account.AccountModel.authenticate(username, password, (err, account) => {
+    if (err || !account) {
+      return res.status(401).json({ error: 'Wrong username or password' });
     }
 
-    return Account.AccountModel.authenticate(username, password, (err, account) => {
-        if (err || !account) {
-            return res.status(401).json({ error: 'Wrong username or password' });
-        }
+    req.session.account = Account.AccountModel.toAPI(account);
 
-        req.session.account = Account.AccountModel.toAPI(account);
-
-        return res.json({ redirect: '/maker' });
-    });
+    return res.json({ redirect: '/maker' });
+  });
 };
 
 const signup = (request, response) => {
-    const req = request;
-    const res = response;
+  const req = request;
+  const res = response;
 
-    // Cast to strings to cover up some security flaws
-    req.body.username = `${req.body.username}`;
-    req.body.pass = `${req.body.pass}`;
-    req.body.pass2 = `${req.body.pass2}`;
+  // Cast to strings to cover up some security flaws
+  req.body.username = `${req.body.username}`;
+  req.body.pass = `${req.body.pass}`;
+  req.body.pass2 = `${req.body.pass2}`;
 
-    if (!req.body.username || !req.body.pass || !req.body.pass2) {
-        return res.status(400).json({ error: 'All the fields need to be filled!' });
-    }
+  if (!req.body.username || !req.body.pass || !req.body.pass2) {
+    return res.status(400).json({ error: 'All the fields need to be filled!' });
+  }
 
-    if (req.body.pass !== req.body.pass2) {
-        return res.status(400).json({ error: 'The passwords need to match!' });
-    }
+  if (req.body.pass !== req.body.pass2) {
+    return res.status(400).json({ error: 'The passwords need to match!' });
+  }
 
-    return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
-        const accountData = {
-            username: req.body.username,
-            salt,
-            password: hash,
-        };
+  return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
+    const accountData = {
+      username: req.body.username,
+      salt,
+      password: hash,
+    };
 
-        const newAccount = new Account.AccountModel(accountData);
+    const newAccount = new Account.AccountModel(accountData);
 
-        const savePromise = newAccount.save();
+    const savePromise = newAccount.save();
 
-        savePromise.then(() => {
-            req.session.account = Account.AccountModel.toAPI(newAccount);
-            return res.json({ redirect: '/maker' });
-        });
-
-        savePromise.catch((err) => {
-            console.log(err);
-
-            if (err.code === 11000) {
-                return res.status(400).json({ error: 'Username is already in use.' });
-            }
-
-            return res.status(400).json({ error: 'An error occurred' });
-        });
+    savePromise.then(() => {
+      req.session.account = Account.AccountModel.toAPI(newAccount);
+      return res.json({ redirect: '/maker' });
     });
+
+    savePromise.catch((err) => {
+      console.log(err);
+
+      if (err.code === 11000) {
+        return res.status(400).json({ error: 'Username is already in use.' });
+      }
+
+      return res.status(400).json({ error: 'An error occurred' });
+    });
+  });
 };
 
 module.exports.loginPage = loginPage;
