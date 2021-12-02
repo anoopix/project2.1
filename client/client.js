@@ -13,6 +13,7 @@ const sendAjax = (action, data) => {
             window.location = result.redirect;
         },
         error: (xhr, status, error) => {
+            console.log("There is something wrong...");
             const messageObj = JSON.parse(xhr.responseText);
 
             handleError(messageObj.error);
