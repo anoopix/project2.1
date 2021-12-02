@@ -24,7 +24,7 @@
         <label htmlFor="pass">Password: </label>
         <input id="pass" type="password" name="pass" placeholder="password" />
       </div>
-        <input type="hidden" name="_csrf" value={props.csrf} />
+        <input type="hidden" name="_csrf" value={{csrfToken}} />
         <input class="formSubmit" type="submit" value="Sign in" />
     </form>
   </div>

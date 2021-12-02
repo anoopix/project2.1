@@ -9,7 +9,7 @@ const makerPage = (req, res) => {
             return res.status(400).json({ error: 'An error occurred. Chirps cannot be found.' });
         }
 
-        return res.render('app', { chirps: docs });
+        return res.render('app', { csrfToken: req.csrfToken(), chirps: docs });
     });
 };
 
