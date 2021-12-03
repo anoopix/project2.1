@@ -44,5 +44,20 @@ const makeChirp = (req, res) => {
     return chirpPromise;
 };
 
+const getChirps = (request, response) => {
+    const req = request;
+    const res = response;
+
+    return Chirp.ChirpModel.findAllChirps((err, docs) => {
+        if (err) {
+            console.log(err);
+            return res.status(400).json({ error: 'An error occurred. Chirps cannot be found.' });
+        }
+
+        return res.json({ chirps: docs });
+    });
+};
+
 module.exports.makerPage = makerPage;
+module.exports.getChirps = getChirps;
 module.exports.make = makeChirp;

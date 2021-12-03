@@ -2,7 +2,11 @@
 <head>
   <meta charset="utf-8"/>
   <title>Chirper</title>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 </head>
@@ -10,23 +14,11 @@
   <div class="header">
     <h1 id="logo">Chirper</h3>
     <div class="headerBtns">
-      <button onclick="window.location.href='/login';" id="loginButton">Login</button>
-      <button onclick="window.location.href='/signup';" id="signupButton">Sign up</button>
+      <button id="loginButton">Login</button>
+      <button id="signupButton">Sign up</button>
     </div>
   </div>
   <div class="main">
-    <form id="loginForm" name="loginForm" action="/login" method="POST" class="mainForm">
-      <div class="labelInputGroup">
-        <label htmlFor="username">Username: </label>
-        <input id="user" type="text" name="username" placeholder="username" />
-      </div>
-      <div class="labelInputGroup">
-        <label htmlFor="pass">Password: </label>
-        <input id="pass" type="password" name="pass" placeholder="password" />
-      </div>
-        <input type="hidden" name="_csrf" value={{csrfToken}} />
-        <input class="formSubmit" type="submit" value="Sign in" />
-    </form>
   </div>
   <div class="message">
     <h3 id="errorMessage"></h3>
@@ -34,6 +26,6 @@
   <div class="footer">
     Footer
   </div>
-  <script src="/assets/bundle.js"></script>
+  <script src="/assets/loginBundle.js"></script>
 </body>
 </html>
