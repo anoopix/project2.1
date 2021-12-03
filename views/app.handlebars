@@ -2,11 +2,7 @@
 <head>
   <meta charset="utf-8"/>
   <title>Chirper</title>
-  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 </head>
@@ -19,7 +15,7 @@
   </div>
   <div class="main">
     <div class="userInput">
-      {{!-- <form id="makerForm" name="chirpForm" action="/maker" method="POST" class="makerForm">
+      <form id="makerForm" name="chirpForm" action="/maker" method="POST" class="makerForm">
           <textarea id="maker" type="text" name="chirp" rows="5" cols="80" placeholder="Make a chirp"></textarea>
           <input type="hidden" name="_csrf" value={{csrfToken}} />
           <br>
@@ -29,10 +25,10 @@
           <input id="search" type="text" name="search" placeholder="Search keywords" />
           <input type="hidden" name="_csrf" value={{csrfToken}} />
           <input id="searchBtn" type="submit" value="Search" />
-      </form> --}}
+      </form>
     </div>
     <div class="chirperFeed">
-      {{!-- {{#if chirps}}
+      {{#if chirps}}
         {{#each chirps}}
           <div class="chirp">
             <div class="chirpUserInfo">
@@ -53,7 +49,7 @@
         {{/each}}
       {{else}}
         <h3 class="noChirps">No Chirps have been posted yet!</h3>
-      {{/if}} --}}
+      {{/if}}
     </div>
   </div>
   <div class="message">
