@@ -1,35 +1,8 @@
 "use strict";
 
-var handleLogin = function handleLogin(e) {
-  e.preventDefault();
-
-  if ($("#user").val() == '' || $("#pass").val() == '') {
-    handleError("A username and password must be entered!");
-    return false;
-  }
-
-  console.log($("input[name=_csrf]").val());
-  sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
-  return false;
-};
-
-var handleSignup = function handleSignup(e) {
-  e.preventDefault();
-
-  if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-    handleError("All the fields need to be filled!");
-    return false;
-  }
-
-  if ($("#pass").val() !== $("#pass2").val()) {
-    handleError("The passwords need to match!");
-    return false;
-  }
-
-  sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
-  return false;
-};
-
+// Function used to create Login screen
+// User enters their username and password
+// then clicks Sign in button
 var LoginWindow = function LoginWindow(props) {
   return /*#__PURE__*/React.createElement("form", {
     id: "loginForm",
@@ -65,7 +38,24 @@ var LoginWindow = function LoginWindow(props) {
     type: "submit",
     value: "Sign in"
   }));
-};
+}; // Function called when user clicks Sign in button
+
+
+var handleLogin = function handleLogin(e) {
+  e.preventDefault();
+
+  if ($("#user").val() == '' || $("#pass").val() == '') {
+    handleError("A username and password must be entered!");
+    return false;
+  }
+
+  console.log($("input[name=_csrf]").val());
+  sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
+  return false;
+}; // Function used to create Signup screen
+// User enters their chosen username, password, and then retypes the password
+// Clicks Signup button
+
 
 var SignupWindow = function SignupWindow(props) {
   return /*#__PURE__*/React.createElement("form", {
@@ -111,6 +101,24 @@ var SignupWindow = function SignupWindow(props) {
     type: "submit",
     value: "Sign Up"
   }));
+}; // Function called when user clicks Signup button
+
+
+var handleSignup = function handleSignup(e) {
+  e.preventDefault();
+
+  if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
+    handleError("All the fields need to be filled!");
+    return false;
+  }
+
+  if ($("#pass").val() !== $("#pass2").val()) {
+    handleError("The passwords need to match!");
+    return false;
+  }
+
+  sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
+  return false;
 };
 
 var createLoginWindow = function createLoginWindow(csrf) {
