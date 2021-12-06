@@ -446,7 +446,7 @@ input[type=submit]:active {
     top: 0;
     left: 0;
     width: 150px;
-    height: 95%;
+    height: 600px;
     background-color: gray;
     text-align: left;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
