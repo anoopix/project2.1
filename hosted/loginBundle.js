@@ -119,19 +119,25 @@ var handleSignup = function handleSignup(e) {
 
   sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
   return false;
-};
+}; // Function used to React render login screen
+
 
 var createLoginWindow = function createLoginWindow(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(LoginWindow, {
     csrf: csrf
   }), document.querySelector(".main"));
-};
+}; // Function used to React render signup screen
+
 
 var createSignupWindow = function createSignupWindow(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(SignupWindow, {
     csrf: csrf
   }), document.querySelector(".main"));
-};
+}; // Function used to setup first screen the user interacts with: login screen
+// Adds functionality to Login and Signup buttons
+// Clicking each button will create their respective screens
+// Login window opened by default
+
 
 var setup = function setup(csrf) {
   var loginButton = document.querySelector("#loginButton");
@@ -147,13 +153,15 @@ var setup = function setup(csrf) {
     return false;
   });
   createLoginWindow(csrf);
-};
+}; // getToken function
+
 
 var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {
     setup(result.csrfToken);
   });
-};
+}; // Called immediately when page is loaded
+
 
 $(document).ready(function () {
   getToken();

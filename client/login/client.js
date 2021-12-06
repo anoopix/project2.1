@@ -77,6 +77,7 @@ const handleSignup = (e) => {
     return false;
 };
 
+// Function used to React render login screen
 const createLoginWindow = (csrf) => {
     ReactDOM.render(
         <LoginWindow csrf={csrf} />,
@@ -84,6 +85,7 @@ const createLoginWindow = (csrf) => {
     );
 };
 
+// Function used to React render signup screen
 const createSignupWindow = (csrf) => {
     ReactDOM.render(
         <SignupWindow csrf={csrf} />,
@@ -91,6 +93,10 @@ const createSignupWindow = (csrf) => {
     );
 };
 
+// Function used to setup first screen the user interacts with: login screen
+// Adds functionality to Login and Signup buttons
+// Clicking each button will create their respective screens
+// Login window opened by default
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
@@ -110,12 +116,14 @@ const setup = (csrf) => {
     createLoginWindow(csrf);
 };
 
+// getToken function
 const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
 };
 
+// Called immediately when page is loaded
 $(document).ready(function() {
     getToken();
 });
